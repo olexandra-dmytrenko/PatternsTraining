@@ -7,7 +7,8 @@ import org.fluttercode.datafactory.impl.DataFactory;
  * Created by olexandra on 11/6/17.
  */
 public class Main {
-@SneakyThrows
+
+    @SneakyThrows
     public static void main(String[] args) {
 
         MailSender mailSender = new MailSender();

@@ -3,7 +3,8 @@ package newer_user_switch.mails;
 /**
  * Created by olexandra on 11/6/17.
  */
-public class WelcomeResponse implements MailResponse {
+@MailCode(1)
+public class WelcomeGenerator implements MailGenerator {
     public String getResponse(){
         return "WelcomeResponse";
     }

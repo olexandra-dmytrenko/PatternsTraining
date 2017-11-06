@@ -7,18 +7,18 @@ import lombok.Getter;
  */
 @Getter
 public enum MailTypeEnum {
-    WELCOME(1, new WelcomeResponse()),
-    EMAIL_CALLBACK(2, new BadResponse());
+    WELCOME(1, new WelcomeGenerator()),
+    EMAIL_CALLBACK(2, new BadGenerator());
 
     int dbCode;
-    MailResponse response;
+    MailGenerator response;
 
-    MailTypeEnum(int dbCode, MailResponse response) {
+    MailTypeEnum(int dbCode, MailGenerator response) {
         this.dbCode = dbCode;
         this.response = response;
     }
 
-    public static MailResponse getResponse(int code){
+    public static MailGenerator getResponse(int code){
         for (MailTypeEnum responseEnum : MailTypeEnum.values()) {
             if (responseEnum.dbCode==code){
                 return responseEnum.response;
