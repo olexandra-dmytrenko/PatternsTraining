@@ -1,6 +1,7 @@
 package tdd;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 
 /**
@@ -9,9 +10,10 @@ import lombok.SneakyThrows;
 public class NDSResolver {
     @Getter
     private double nds;
-    private static NDSResolver ourInstance = new NDSResolver();
+@Setter
+    private NDSResolver ourInstance ;
 
-    public static NDSResolver getInstance() {
+    public  NDSResolver getInstance() {
         return ourInstance;
     }
     @SneakyThrows

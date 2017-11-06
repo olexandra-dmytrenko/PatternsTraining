@@ -5,7 +5,10 @@ package tdd;
  */
 public class TaxCalculator {
     double withNDS(double price) {
-        return NDSResolver.getInstance().getNds() * 1.2;
+        //return interface with NDSResolver
+        //return getNds() * 1.2;
+        return 1.2;
+        //don't write singletone because it limits you.
     }
 }
 
