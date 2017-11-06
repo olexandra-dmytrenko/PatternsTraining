@@ -5,7 +5,8 @@ package newer_user_switch.mails;
  */
 @MailCode(2)
 public class BadGenerator implements MailGenerator {
-   public String getResponse(){
+    @Override
+    public String getResponse() {
         return "BadResponse";
     }
 }

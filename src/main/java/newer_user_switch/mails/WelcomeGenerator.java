@@ -5,6 +5,7 @@ package newer_user_switch.mails;
  */
 @MailCode(1)
 public class WelcomeGenerator implements MailGenerator {
+    @Override
     public String getResponse(){
         return "WelcomeResponse";
     }

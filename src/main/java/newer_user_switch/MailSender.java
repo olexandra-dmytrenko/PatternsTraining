@@ -19,6 +19,7 @@ public class MailSender {
 
     private Map<Integer, MailGenerator> map = new HashMap<>();
 
+
     public MailSender() throws IllegalAccessException, InstantiationException {
 
         Set<Class<? extends MailGenerator>> classes = reflections.getSubTypesOf(MailGenerator.class);
@@ -28,11 +29,11 @@ public class MailSender {
             if (!Modifier.isAbstract(aClass.getModifiers())) {
                 MailCode annotation = aClass.getAnnotation(MailCode.class);
                 if (annotation == null) {
-                    throw new RuntimeException("Annotate the class");
+                    throw new RuntimeException("if you use MailGenerator you MUST annotated your class with @MailType");
                 }
                 int mailCode = annotation.value();
-                if (!map.containsKey(mailCode)) {
-                    throw new RuntimeException(" value is already in map");
+                if (map.containsKey(mailCode)) {
+                    throw new RuntimeException(mailCode + " already in use");
                 }
                 map.put(mailCode, aClass.newInstance());
             }
