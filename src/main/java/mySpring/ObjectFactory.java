@@ -3,21 +3,20 @@ package mySpring;
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by olexandra on 11/6/17.
  */
 public class ObjectFactory {
 
-    static Map<Class<?>, Object> map;
+    List<ObjectConfigurator> objectConfigurators = new ArrayList<>();
+    private static Map<Class<?>, Object> map;
 
     static {
         map = new HashMap<>();
-        map.put(Speaker.class, new ConsoleSpeaker());
-        map.put(ICleaner.class, new CleanerImpl());
+//        map.put(Speaker.class, new ConsoleSpeaker());
+//        map.put(ICleaner.class, new CleanerImpl());
     }
 
     private Reflections scaner = new Reflections("mySpring");
@@ -34,16 +33,24 @@ public class ObjectFactory {
     private <T> T createObject(Class<T> clazz) {
 //        String simpleName = clazz.getSimpleName();
         T newObject;
-        //is interface
-        if (!clazz.isInterface()) {
-            newObject = clazz.newInstance();
+        if (map.containsKey(clazz)) {
+            //object was created
+            return (T) map.get(clazz);
         } else {
-            //is class
-            Set<Class<? extends T>> classes = scaner.getSubTypesOf(clazz);
-            if (classes.size() != 1) {
-                throw new IllegalStateException("one implementaion should be");
+            //object will be new
+            if (!clazz.isInterface()) {
+                //is class
+                newObject = clazz.newInstance();
+                map.put(clazz, newObject);
+            } else {
+                //is interface
+                Set<Class<? extends T>> classes = scaner.getSubTypesOf(clazz);
+                if (classes.size() != 1) {
+                    throw new IllegalStateException("one implementaion should be");
+                }
+                newObject = classes.iterator().next().newInstance();
             }
-            newObject = classes.iterator().next().newInstance();
+            map.put(clazz, newObject);
         }
         return newObject;
     }
